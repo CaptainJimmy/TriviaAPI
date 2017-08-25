@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Game of Thrones Trivia</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cyborg/bootstrap.min.css">
+<!-- <link href="https://fonts.googleapis.com/css?family=Pacifico|VT323|Open+Sans+Condensed:300" rel="stylesheet"> -->
+<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="icon" href="assets/images/android.png">
+</head>
+<body>
+	<div class="container">
+	<div class="jumbotron" id="mainJumboTron">
+		<h1><div id="jumbotronMessage"></div></h1>
+		<h2><strong> Question: </strong> <br>
+		<div id="question"></div></h2>
+
+		<h2><strong>Answers: </strong><br>
+		<div id="answers"></div></h2>
+
+		<hr>
+		<div class="text-center">
+		<h3>Time Left: <span id="timer"></span></h3>
+		<h4> Questions Left: <span id="questionsLeft"></span></h4>
+	</div>
+</div>
+</div>
+
+<div id="startModal" class="modal" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header"><button class="close" type="button" data-dismiss="modal"></button>
+			</div>
+
+			<div class="modal-body modal-body-startModal">
+				<div class="row">
+					<div class="col-md-4 col-xs-10">
+						<h3> Test your knowledge of Game of Thrones with some trivia. </h3>
+					</div>
+					
+					<div class="col-md-4 col-xs-10">
+						<div class="container-fluid">
+							<img src="assets/images/thrones.jpg" class="modalImage" alt="throne">
+						</div>
+					</div>
+				
+					<div class="col-md-4 col-xs-10" style="margin-top: 15px;">
+						<p>Click the start button!</p>
+						<button id="startModalButton" type="button" class="startModalClass btn btn-default" data-dismiss="modal">Start!</button>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="scoreModal" class="modal" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header"><button class="close" type="button" data-dismiss="scoreModal"></button>
+			</div>
+
+			<div class="modal-body modal-body-scoreModal">
+			<div class="row">
+				<div class="col-md-4 col-xs-10 modal-body-scoreModal">
+					
+					<h4><div id="modalMessage"></div>
+					<p>Correct Answers: <span id="numCorrect"></span></p>
+					<p>Incorrect Answers: <span id="numWrong"></span></p>
+					<p>Answers Timed Out: <span id="numTimedOut"></span></p></h4>
+				</div>
+				<div class="col-md-4 col-xs-10 modal-body-scoreModal">
+					<div class="container-fluid">
+							<img src="assets/images/score.jpg" class="modalImage" alt="Impin Aint Easy">
+					</div>
+				</div>
+				<div class="col-md-4 col-xs-10 modal-body-scoreModal">
+					<h4><p>Your Percentage Correct:<span id="percentCorrect"></span></p>
+					<p>Your Percentage Incorrect:<span id="percentIncorrect"></span></p>
+					<p>Your Final Grade:<span id="finalGrade"></span></p></h4>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button"  class="startModalClass btn btn-default" data-dismiss="modal">Play Again?</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<script type="text/javascript" src="./assets/js/trivia.js"></script>	
+</body>
+</html>

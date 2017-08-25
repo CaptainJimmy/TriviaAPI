@@ -1,0 +1,41 @@
+body {
+    background-image: url("../images/background.jpg");
+       background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+
+
+.modalImage{
+	display: block;
+	margin: auto;
+	width: 75%;
+}
+.modal-body-startModal {
+margin-top: 15px;
+margin-bottom: 15px;
+padding: 10px;
+}
+.modal-body.scoreModal {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding: 10px;
+}
+/*text.modal-body-startModal {
+padding: 10px;
+}*/
+/*.modal-body-scoreModal {
+   background-image: url("../images/score.jpg");
+     background-repeat: no-repeat;
+    background-attachment: inherit;
+    background-position: center; 
+    background-size: 30%;
+}*/
+.modal-footer {
+	margin-top: 40px;
+	border-top: 0px;
+}
+.answer-button {
+	margin: 10px;
+	padding: 10px;
+}
