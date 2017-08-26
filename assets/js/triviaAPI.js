@@ -99,9 +99,9 @@ function nextQuestion(){
 			//	create the questions into an array dynamically. Correct answer is always [0]
 			answersArray=[];
 			answersArray.push(questionArrayLoc.correct_answer);
-			console.log("questionArrayLoc.correct_answer " + questionArrayLoc.correct_answer);
+			//console.log("questionArrayLoc.correct_answer " + questionArrayLoc.correct_answer);
         	 for (var i=0; i<questionArrayLoc.incorrect_answers.length;i++){
-        	 	console.log("questionArrayLoc.incorrect_answers[i] " + questionArrayLoc.incorrect_answers[i]);
+        	 	//console.log("questionArrayLoc.incorrect_answers[i] " + questionArrayLoc.incorrect_answers[i]);
         	 	answersArray.push(questionArrayLoc.incorrect_answers[i]);
         	}
 
@@ -111,25 +111,33 @@ function nextQuestion(){
         	
         	console.log(answersArray);
       		 console.log(answersArrayTemp);
+      		 console.log(answersArray.length);
 	// display the question and the answers as buttons
-			for (var j=0; j < answersArray.length; j++){
-				  var a = $("<button>");
-          		 // Added a data-attribute
-          		 	var k = Math.floor(Math.random()*answersArrayTemp.length);
 
-         		 	a.attr("data-name", answersArrayTemp[k]);
+	///this isnt working below sherp
+			for (var j=0; j < answersArray.length; j++){
+				  var a = $("<button>"); 
+          		 // Added a data-attribute
+          		 	var randomIndex = Math.round(Math.random()*answersArrayTemp.length);
+          		 		// math.round? or rnd
+          		 			console.log("j: "+ j);
+          		 			console.log("randomIndex " + randomIndex);
+          		 			console.log("answersArrayTemp.length " + answersArrayTemp.length);
+         		 	a.attr("data-name", answersArrayTemp[randomIndex
+         		 		]);
           			a.attr("class", "button btn btn-default btn-lg normal-button answer-button")
           			// Provided the initial button text
-          			a.text(answersArrayTemp[k]);
+          			a.text(answersArrayTemp[randomIndex]);
           			// remove that answer from the array
           		
           			//console.log("a: " + a);
          			 // Added the button to the buttons-view div
          			 $("#answers").append(a);
-         			 	console.log("answersArrayTemp["+k+"] "+ answersArrayTemp[k]);
+         			 	console.log("answersArrayTemp["+randomIndex+"] "+ answersArrayTemp[randomIndex]);
           			console.log("answersArrayTemp before splice");
           			console.log(answersArrayTemp);
-          			answersArrayTemp.splice(k,1);
+          			answersArrayTemp.splice(randomIndex,1);
+
           			console.log("answersArrayTemp after splice");
           			console.log(answersArrayTemp);
 				}
