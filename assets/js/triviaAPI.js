@@ -104,42 +104,30 @@ function nextQuestion(){
         	 	//console.log("questionArrayLoc.incorrect_answers[i] " + questionArrayLoc.incorrect_answers[i]);
         	 	answersArray.push(questionArrayLoc.incorrect_answers[i]);
         	}
-
-        	//establishing correct answer to index 0
-        	//var correctAnswer=answersArray[0];
-        	var answersArrayTemp=answersArray;
         	
         	console.log(answersArray);
-      		 console.log(answersArrayTemp);
       		 console.log(answersArray.length);
 	// display the question and the answers as buttons
-
+			var idx = Math.round(Math.random() % answersArray.length);
+			var correctAnswer = answersArray[0];
+			var randomIncorrectAnswer = answersArray[idx];
+			answersArray[0] = randomIncorrectAnswer;
+			answersArray[idx] = correctAnswer;
+			console.log(answersArray);
+			console.log(answersArray.length);
 	///this isnt working below sherp
 			for (var j=0; j < answersArray.length; j++){
 				  var a = $("<button>"); 
           		 // Added a data-attribute
-          		 	var randomIndex = Math.round(Math.random()*answersArrayTemp.length);
-          		 		// math.round? or rnd
-          		 			console.log("j: "+ j);
-          		 			console.log("randomIndex " + randomIndex);
-          		 			console.log("answersArrayTemp.length " + answersArrayTemp.length);
-         		 	a.attr("data-name", answersArrayTemp[randomIndex
-         		 		]);
+         		 	a.attr("data-name", answersArray[j]);
           			a.attr("class", "button btn btn-default btn-lg normal-button answer-button")
           			// Provided the initial button text
-          			a.text(answersArrayTemp[randomIndex]);
+          			a.text(answersArray[j]);
           			// remove that answer from the array
           		
           			//console.log("a: " + a);
          			 // Added the button to the buttons-view div
          			 $("#answers").append(a);
-         			 	console.log("answersArrayTemp["+randomIndex+"] "+ answersArrayTemp[randomIndex]);
-          			console.log("answersArrayTemp before splice");
-          			console.log(answersArrayTemp);
-          			answersArrayTemp.splice(randomIndex,1);
-
-          			console.log("answersArrayTemp after splice");
-          			console.log(answersArrayTemp);
 				}
 			//start the timer
 			if (!clockRunning){
