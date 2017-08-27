@@ -25,12 +25,9 @@ var intervalId;
 //prevents the clock from being sped up unnecessarily
 var clockRunning = false;
 
-// questions and answers object
-
 // functions
 function getQuestions(){
 		console.log("getQuestions");
-		//var movie = $(this).attr("data-name");
         var queryURL = "https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple";
 
         // Creates AJAX call for the specific movie button being clicked
@@ -40,25 +37,17 @@ function getQuestions(){
         }).done(function(response) {
         	triviaObject=response.results;
         	questionsLeft=triviaObject.length;
-        	// console.log("response.results");
-        	// console.log(response.results);
-        	// console.log("questionsLeft " + questionsLeft)
-        	// console.log("triviaObject ");
-        	// console.log(triviaObject); 
         	updateScore();
         });
 	}
-// create the question  list from the object array
-function startModal(){
-	console.log("startModal");
+//start the starting Modal
 	$("#startModal").modal();
 	$(".startModalClass").on("click",function(){
 			startGame();
 	});
 }
-
+// start the game 
 function startGame(){
-	console.log("startGame");
 $("#jumbotronMessage").text("Good Luck, Stupid");
 numWrong=0;
 numCorrect=0;
@@ -68,18 +57,15 @@ numTimedOut=0;
 getQuestions();
 }
 
+//update the score/questions left
 function updateScore(){
-	console.log("updateScore");
+
 	$("#questionsLeft").text(questionsLeft);
-	//console.log("questions left " + questionsLeft);
-	//console.log(triviaObject);
 
 	if (questionsLeft === 0) {
-		console.log("ENDING SCORE CALLED");
 		endingScore();
 	}
 	else if (questionsLeft <= triviaObject.length ) {
-		console.log("NEXT QUESTION CALLED");
 		nextQuestion();
 		}
 	else {
@@ -93,8 +79,7 @@ function nextQuestion(){
 			questionOutput=triviaObject[questionsLeft-1].question;
 
 			// Grab A question From The List
-			console.log(questionOutput);
-			$("#question").text(questionOutput);
+			$("#question").html(questionOutput);
 			// zero out the answers
 			$('#answers').empty();
 			//	create the questions into an array dynamically. Correct answer is always [0]
@@ -102,24 +87,24 @@ function nextQuestion(){
 			answersArray.push(questionArrayLoc.correct_answer);
 			//console.log("questionArrayLoc.correct_answer " + questionArrayLoc.correct_answer);
         	 for (var i=0; i<questionArrayLoc.incorrect_answers.length;i++){
-        	 	//console.log("questionArrayLoc.incorrect_answers[i] " + questionArrayLoc.incorrect_answers[i]);
+        	 	//console.log("questionArrayLoc.incorrect_answers["+ i+"] " + questionArrayLoc.incorrect_answers[i]);
         	 	answersArray.push(questionArrayLoc.incorrect_answers[i]);
         	}
         	
-        	console.log(answersArray);
-      		 console.log(answersArray.length);
-	// display the question and the answers as buttons
+        	// console.log("1 " + answersArray);
+      		 // console.log("1 " + answersArray.length);
+	// display the question and the answers as buttons, the zero index is moved to a random location, and that location is moved to zero
 			correctAnswerIdx = Math.round(Math.random() % (answersArray.length-1)) + 1;
 			var correctAnswer = answersArray[0];
 			var randomIncorrectAnswer = answersArray[correctAnswerIdx];
 			answersArray[0] = randomIncorrectAnswer;
 			answersArray[correctAnswerIdx] = correctAnswer;
-			console.log(answersArray);
-			console.log(answersArray.length);
-	///this isnt working below sherp
+			// console.log("2 " + answersArray);
+			// console.log("2 "+ answersArray.length);
 			for (var j=0; j < answersArray.length; j++){
 				  var a = $("<button>"); 
           		 // Added a data-attribute
+          		// console.log(answersArray[j]);
          		 	a.attr("data-name", answersArray[j]);
           			a.attr("class", "button btn btn-default btn-lg normal-button answer-button")
           			// Provided the initial button text
@@ -179,9 +164,7 @@ function countDown(){
 
 function verifyAnswer(buttonClicked){
 	var correctAnswer=answersArray[correctAnswerIdx];
-	// console.log("verifyAnswer");
-	// console.log("correctANswer " + correctAnswer);
-	// console.log(buttonClicked + correctAnswer);
+
 	// find out if the answer picked is correct
 	if (buttonClicked === correctAnswer) {
 
@@ -219,6 +202,7 @@ function endingScore(){
 
 // Start the game with startModal
 startModal();
+//the on click for the answer buttons
 $("body").on("click", ".answer-button", function(){
 	 event.preventDefault();
 	var clickedButton=$(this).attr("data-name");
