@@ -12,6 +12,7 @@ var triviaObject;
 var correctAnswer;
 var questionArrayLoc;
 var answersArray=[];
+var correctAnswerIdx=0;
 // vars used in the modal
 var modalMessage;
 var numCorrect;
@@ -108,11 +109,11 @@ function nextQuestion(){
         	console.log(answersArray);
       		 console.log(answersArray.length);
 	// display the question and the answers as buttons
-			var idx = Math.round(Math.random() % answersArray.length);
+			correctAnswerIdx = Math.round(Math.random() % (answersArray.length-1)) + 1;
 			var correctAnswer = answersArray[0];
-			var randomIncorrectAnswer = answersArray[idx];
+			var randomIncorrectAnswer = answersArray[correctAnswerIdx];
 			answersArray[0] = randomIncorrectAnswer;
-			answersArray[idx] = correctAnswer;
+			answersArray[correctAnswerIdx] = correctAnswer;
 			console.log(answersArray);
 			console.log(answersArray.length);
 	///this isnt working below sherp
@@ -177,7 +178,7 @@ function countDown(){
 }
 
 function verifyAnswer(buttonClicked){
-	var correctAnswer=answersArray[0];
+	var correctAnswer=answersArray[correctAnswerIdx];
 	// console.log("verifyAnswer");
 	// console.log("correctANswer " + correctAnswer);
 	// console.log(buttonClicked + correctAnswer);
