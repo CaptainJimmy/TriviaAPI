@@ -18,7 +18,8 @@ var modalMessage;
 var numCorrect;
 var numWrong;
 var numTimedOut;
-
+var tokenURL = "https://opentdb.com/api_token.php?command=request";
+var token;
 //  Variable that will hold our setInterval that runs the stopwatch
 var intervalId;
 
@@ -27,8 +28,9 @@ var clockRunning = false;
 
 // functions
 function getQuestions(){
-		console.log("getQuestions");
-        var queryURL = "https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple";
+		
+        var queryURL = "https://opentdb.com/api.php?amount=10&category=11&difficulty=easy&type=multiple&token=" + token;
+        // Creates AJAX call to retrieve a new token
 
         // Creates AJAX call for the specific movie button being clicked
         $.ajax({
@@ -41,14 +43,15 @@ function getQuestions(){
         });
 	}
 //start the starting Modal
+function startModal(){
 	$("#startModal").modal();
 	$(".startModalClass").on("click",function(){
 			startGame();
 	});
-}
+};
 // start the game 
 function startGame(){
-$("#jumbotronMessage").text("Good Luck, Stupid");
+$("#jumbotronMessage").text("Good Luck, Friend");
 numWrong=0;
 numCorrect=0;
 numTimedOut=0;
@@ -74,7 +77,6 @@ function updateScore(){
 }
 
 function nextQuestion(){
-		console.log("nextQuestion");
 			questionArrayLoc=triviaObject[questionsLeft-1];
 			questionOutput=triviaObject[questionsLeft-1].question;
 
@@ -90,29 +92,25 @@ function nextQuestion(){
         	 	//console.log("questionArrayLoc.incorrect_answers["+ i+"] " + questionArrayLoc.incorrect_answers[i]);
         	 	answersArray.push(questionArrayLoc.incorrect_answers[i]);
         	}
-        	
-        	// console.log("1 " + answersArray);
-      		 // console.log("1 " + answersArray.length);
+     
 	// display the question and the answers as buttons, the zero index is moved to a random location, and that location is moved to zero
-			correctAnswerIdx = Math.round(Math.random() % (answersArray.length-1)) + 1;
+			//correctAnswerIdx = Math.round(Math.random() % (answersArray.length-1)) + 1;
+			correctAnswerIdx = Math.round(Math.random() % (answersArray.length-1));
+
 			var correctAnswer = answersArray[0];
 			var randomIncorrectAnswer = answersArray[correctAnswerIdx];
 			answersArray[0] = randomIncorrectAnswer;
 			answersArray[correctAnswerIdx] = correctAnswer;
-			// console.log("2 " + answersArray);
-			// console.log("2 "+ answersArray.length);
+	
 			for (var j=0; j < answersArray.length; j++){
 				  var a = $("<button>"); 
           		 // Added a data-attribute
-          		// console.log(answersArray[j]);
          		 	a.attr("data-name", answersArray[j]);
           			a.attr("class", "button btn btn-default btn-lg normal-button answer-button")
           			// Provided the initial button text
-          			a.text(answersArray[j]);
+          			a.html(answersArray[j]);
           			// remove that answer from the array
-          		
-          			//console.log("a: " + a);
-         			 // Added the button to the buttons-view div
+          		     // Added the button to the buttons-view div
          			 $("#answers").append(a);
 				}
 			//start the timer
@@ -134,7 +132,7 @@ function isCorrect(){
 
 function isWrong(){
 	// if the answer is incorrect, numWrong++, questionsLeft--, then display the next quesion if applicable
-	$("#jumbotronMessage").text("Good one, jackass. Try harder.");
+	$("#jumbotronMessage").text("You LOSE. Good DAY sir.");
 	numWrong++;
 	questionsLeft--;
 	clearInterval(intervalId);
@@ -144,7 +142,7 @@ function isWrong(){
 
 	//if the answer times out, timedOut++, questionsLeft--, clear the timer, then display the next question if applicable
 function timeRanOut(){
-	$("#jumbotronMessage").text("Work Faster. Quit texting your mother.");
+	$("#jumbotronMessage").text("Work Faster, Time's Up");
 	numTimedOut++;
 	questionsLeft--;
 	clearInterval(intervalId);
@@ -192,13 +190,31 @@ function endingScore(){
  	var percentCorrect=(numCorrect/totalQuestions)*100;
  	$("#percentCorrect").text(percentCorrect);
  	$("#percentIncorrect").text(percentIncorrect);
+ 	var imageClasses="img-responsive img-rounded";
  	if (percentCorrect >=75) {
  		$("#finalGrade").text("You Passed, Sucka");
+ 		var winImage=$("<img>");
+ 		winImage.attr("src","assets/images/mistertwin.jpg");
+ 		winImage.attr("alt","You Won, Sucka!");
+ 		winImage.attr("class", imageClasses);
+ 		$("#modalImageDiv").html(winImage);
  		}
  	else {
  		$("#finalGrade").text("You Failed, Fool.");
+ 		 var loseImage=$("<img>");
+ 		loseImage.attr("src","assets/images/mistertlose.jpg");
+ 		loseImage.attr("alt","You Lose, Fool!");
+ 		loseImage.attr("class", imageClasses);
+ 		$("#modalImageDiv").html(loseImage);
  	}
 }
+// retrieve a new token for the trivia DB on initial load.  Will reuse that token unless the page is refreshed.
+        $.ajax({
+          url: tokenURL,
+          method: "GET"
+        }).done(function(response) {
+        	token=response.token;
+        });
 
 // Start the game with startModal
 startModal();

@@ -1,8 +1,6 @@
 body {
-    background-image: url("../images/background.jpg");
-       background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center; 
+ 
+    background-color: purple;
 }
 
 
@@ -21,16 +19,7 @@ padding: 10px;
 	margin-bottom: 15px;
 	padding: 10px;
 }
-/*text.modal-body-startModal {
-padding: 10px;
-}*/
-/*.modal-body-scoreModal {
-   background-image: url("../images/score.jpg");
-     background-repeat: no-repeat;
-    background-attachment: inherit;
-    background-position: center; 
-    background-size: 30%;
-}*/
+
 .modal-footer {
 	margin-top: 40px;
 	border-top: 0px;
